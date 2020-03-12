@@ -17,4 +17,4 @@ Turnauksia voi luoda usean tyyppisiä (Single-elimination, Round-robin, ~~Double
 
 ## Tietokantakaavio
 
-[Tietokantakaavio](https://github.com/msha/toorny/blob/master/coursestuffs/tietokanta.jpg)
+[Alustava tietokantakaavio](https://github.com/msha/toorny/blob/master/coursestuffs/tietokanta.jpg)
