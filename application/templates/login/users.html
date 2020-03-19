@@ -1,0 +1,24 @@
+{% extends "layout.html" %} {% block body %}
+<h1>Top Secret Admin Panel</h1>
+<table>
+  <tr>
+    <th>Username</th>
+    <th>Status</th>
+  </tr>
+  {% for users in users %}
+  <tr>
+    <td>{{ users.username }}</td>
+    <td>{{ users.banned }}</td>
+    <td>
+      <form
+        method="POST"
+        action="{{ url_for('users_ban', users_id=users.id) }}"
+      >
+        <input type="submit" value="BAN!!!" />
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

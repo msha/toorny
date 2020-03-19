@@ -1,0 +1,9 @@
+{% extends "layout.html" %} {% block body %}
+<form method="POST" action="{{ url_for('register_form') }}">
+  <label>Username:</label>
+  <input type="text" placeholder="Your username" name="name" />
+  <label for="pwd">Password:</label>
+  <input type="password" placeholder="Tämä ei tee mitään :D" name="password" />
+  <input type="submit" value="Register" />
+</form>
+{% endblock %}

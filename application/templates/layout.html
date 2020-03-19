@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Toorny</title>
+  </head>
+  <ul>
+    <li><a href="{{url_for('register_form')}}">Register</a></li>
+    <li><a href="{{url_for('users')}}">Admin Panel</a></li>
+  </ul>
+  <body>
+    {% block body %}
+    <p>
+      Content.
+    </p>
+    {% endblock %}
+  </body>
+</html>
