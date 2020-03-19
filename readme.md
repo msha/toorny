@@ -6,6 +6,11 @@ Tarkoituksena on luoda työkalu, jolla käyttäjät voivat luoda turnauksia, sek
 
 Turnauksia voi luoda usean tyyppisiä (Single-elimination, Round-robin, ~~Double-elimination~~, ~~Swiss-system~~), jonka jälkeen palvelu luo niistä kaaviot sekä mahdollistaa niiden ylläpidon. Turnauksen ylläpitäjä voi kutsua turnaukseen käyttäjiä tai lisätä ne käsin. Turnauksen ylläpitäjä voi merkitä kaikkien pelien tulokset, jonka lisäksi palveluun rekisteröityneet käyttäjät voivat merkitä tulokset omiin peleihinsä. Palvelu pitää myös tilastotietoa tuloksista.
 
+## Heroku
+
+[Sovellus herokussa](https://tsoha-toorny.herokuapp.com)
+Hyvin rajoitettu toiminnallisuus tällä hetkellä :D
+
 ## Toimintoja
 
 - Kirjautuminen
@@ -15,6 +20,8 @@ Turnauksia voi luoda usean tyyppisiä (Single-elimination, Round-robin, ~~Double
 - Tuloksien syöttö
 - Tulosten ja tilastojen tarkastelu
 
-## Tietokantakaavio
+## Dokumentaatio
 
-[Alustava tietokantakaavio](https://github.com/msha/toorny/blob/master/coursestuffs/tietokanta.jpg)
+[Alustava tietokantakaavio](https://github.com/msha/toorny/blob/master/documentation/tietokanta.jpg)
+
+[Käyttötapaukset](https://github.com/msha/toorny/blob/master/documentation/usecases.md)
