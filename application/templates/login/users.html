@@ -8,14 +8,14 @@
   {% for users in users %}
   <tr>
     <td>{{ users.username }}</td>
-    <td>{{ users.banned }}</td>
+    <!-- <td>{{ users.banned }}</td>
     <td>
       <form
         method="POST"
         action="{{ url_for('users_ban', users_id=users.id) }}"
       >
         <input type="submit" value="BAN!!!" />
-      </form>
+      </form> -->
     </td>
   </tr>
   {% endfor %}

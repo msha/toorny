@@ -1,5 +1,31 @@
 {% extends "layout.html" %} {% block body %}
-<p>
-  Here be dragons
-</p>
+<main>
+  <section>
+    {% if current_user.is_authenticated %}
+
+    <header><h1>Your tournaments</h1></header>
+    {% for tournament in tournaments %} {% if current_user.users_id ==
+    tournament.owner %}
+    <aside>
+      <h3>{{ tournament.name }}</h3>
+
+      <p><small>{{ tournament.description }}</small></p>
+      <a
+        href="{{url_for('tournament_edit_form',tournament_id=tournament.tournament_id)}}"
+        >Edit</a
+      >
+      <a
+        style="float: right; color: rgb(233, 78, 78);"
+        href="{{url_for('tournament_delete',tournament_id=tournament.tournament_id)}}"
+        >Delete</a
+      >
+    </aside>
+    {% endif %} {% endfor %} {% else %}
+
+    <p>
+      Here be dragons
+    </p>
+    {% endif %}
+  </section>
+</main>
 {% endblock %}

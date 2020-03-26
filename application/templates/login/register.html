@@ -1,9 +1,24 @@
 {% extends "layout.html" %} {% block body %}
-<form method="POST" action="{{ url_for('register_form') }}">
-  <label>Username:</label>
-  <input type="text" placeholder="Your username" name="name" />
-  <label for="pwd">Password:</label>
-  <input type="password" placeholder="Tämä ei tee mitään :D" name="password" />
-  <input type="submit" value="Register" />
-</form>
+{% for error in form.errors %}
+<section><sup>Your {{ error }} is invalid</sup></section>
+{% endfor %}
+<section>
+  <form method="POST" action="{{ url_for('register_form') }}">
+    <h2>Register a new account</h2>
+    <label for="name">{{form.name.label}}</label>
+    {{ form.name (placeholder="Enter your name")}}
+    <!-- <input type="text" placeholder="Enter your name" name="name" /> -->
+    <label for="username">{{form.username.label}}</label>
+    {{ form.username (placeholder="Enter your username")}}
+    <label for="password">{{form.password.label}}</label>
+    {{ form.password (placeholder="Enter your password")}}
+    <!-- <input type="password" placeholder="Enter your password" name="password" /> -->
+    <button type="submit" value="Register">Register</button>
+    <footer>
+      <small><u>
+          <i>Already registered?
+            <a href="{{url_for('login_form')}}">Login here</a></u></i></small>
+    </footer>
+  </form>
+</section>
 {% endblock %}

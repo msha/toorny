@@ -1,0 +1,19 @@
+{% extends "layout.html" %} {% block body %}
+<section>
+  <form
+    method="POST"
+    action="{{ url_for('tournament_edit',tournament_id=tournament.tournament_id) }}"
+  >
+    <h2>Edit tournament</h2>
+    <label for="name">{{form.name.label}}</label>
+    {{ form.name (value=tournament.name) }}
+    <label for="description">{{form.description.label}}</label>
+    <textarea id="description" name="description">
+{{tournament.description}}</textarea
+    >
+    <label for="type">{{form.type.label}}</label>
+    {{ form.type (disabled="disabled")}}
+    <button type="submit" value="{{tournament.tournament_id}}">Edit</button>
+  </form>
+</section>
+{% endblock %}

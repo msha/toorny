@@ -1,0 +1,26 @@
+{% extends "layout.html" %} {% block body %} 
+
+    {{error}}
+
+<section>
+  <form method="POST" action="{{ url_for('login_form') }}">
+    <h2>Member login</h2>
+    <label for="username">{{form.username.label}}</label>
+    {{ form.username (placeholder="Enter your username")}}
+    <label for="password">{{form.password.label}}</label>
+    {{ form.password (placeholder="Enter your password")}}
+    <button type="submit" value="Login">Login</button><br />
+    <footer>
+      <small><u>
+        <i
+          >Not registered?
+          <a href="{{url_for('register_form')}}"
+              >Create an account here</a
+            ></u
+          ></i
+        ></small
+      >
+    </footer>
+  </form>
+</section>
+{% endblock %}
