@@ -3,8 +3,13 @@ app = Flask(__name__)
 
 from flask_sqlalchemy import SQLAlchemy
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
-app.config["SQLALCHEMY_ECHO"] = True
+import os
+
+if os.environ.get("HEROKU"):
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+else:
+  app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
+  app.config["SQLALCHEMY_ECHO"] = True
 
 db = SQLAlchemy(app)
 
@@ -18,6 +23,7 @@ from application.tournament import models
 from application.tournament import views
 
 from application.login.models import Users
+
 from os import urandom
 app.config["SECRET_KEY"] = urandom(32)
 
