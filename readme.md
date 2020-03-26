@@ -9,7 +9,8 @@ Turnauksia voi luoda usean tyyppisiä (Single-elimination, Round-robin, ~~Double
 ## Heroku
 
 [Sovellus herokussa](https://tsoha-toorny.herokuapp.com)
-Tunnukset:
+
+Tunnukset:  
 testi - testaaja
 
 ## Tunnetut ongelmat
@@ -28,6 +29,6 @@ testi - testaaja
 
 ## Dokumentaatio
 
-[Alustava tietokantakaavio v2](https://github.com/msha/toorny/blob/master/documentation/tietokanta.jpg)
+[Tietokantakaavio](https://github.com/msha/toorny/blob/master/documentation/tietokanta.jpg)
 
 [Käyttötapaukset](https://github.com/msha/toorny/blob/master/documentation/usecases.md)
