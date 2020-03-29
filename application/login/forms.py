@@ -4,16 +4,16 @@ from wtforms import StringField,PasswordField,validators
 class RegisterForm(FlaskForm):
 
     name = StringField("Name")
-    username = StringField("Username", [validators.Length(min=5)])
-    password = PasswordField("Password", [validators.Length(min=8)])
+    username = StringField("Username", [validators.Length(min=5),validators.Length(max=30)])
+    password = PasswordField("Password", [validators.Length(min=8),validators.Length(max=144)])
 
     class Meta:
         csrf = False
 
 class LoginForm(FlaskForm):
 
-    username = StringField("Username")
-    password = PasswordField("Password")
+    username = StringField("Username",[validators.DataRequired()])
+    password = PasswordField("Password",[validators.DataRequired()])
     
     class Meta:
         csrf = False
