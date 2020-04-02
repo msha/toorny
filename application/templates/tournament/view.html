@@ -1,0 +1,32 @@
+{% extends "layout.html" %} {% block body %}
+<section>
+  <header>
+    <h2>{{ tournament.name }}</h2>
+    <p>{{ tournament.description }}</p>
+    <h3>Participants:</h3>
+    <section>
+    <table>
+      <tbody>
+      {% for user in users_t %}
+      {% if user.tournament_id == tournament.tournament_id %}
+        {% for u in users %}
+          {% if user.user_id == u.users_id %}
+          <tr>
+            <td>
+            {{ u.name }} 
+           </td>
+          </tr>
+            <!-- tähän on varmaan parempikin tapa :DD -->
+          {% endif %}
+        {% endfor %}
+        {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+    <a href="{{ url_for('tournament_join',tournament_id=tournament.tournament_id) }}">
+      <b>Join tournament</b>
+    </a>
+  </header>
+</section>
+{% endblock %}
