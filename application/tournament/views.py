@@ -3,6 +3,8 @@ from flask_login import login_required, current_user
 
 from application import app, db
 from application.tournament.models import Tournament
+from application.users_to_tournaments.models import Users_to_tournaments
+from application.login.models import Users
 from application.tournament.forms import TournamentForm
   
 @app.route("/tournament/new/")
@@ -23,6 +25,18 @@ def tournament_edit(tournament_id):
     db.session.commit()
 
     return redirect(url_for("index"))
+
+@app.route("/tournament/view/<tournament_id>/", methods=["GET"])
+@login_required
+def tournament_view(tournament_id):
+
+    t = Tournament.query.get(tournament_id)
+    u = db.session.query(Users)
+    ttu = db.session.query(Users_to_tournaments)
+
+    db.session.commit()
+
+    return render_template("tournament/view.html", tournament = t, users_t = ttu, users = u)
 
 @app.route("/tournament/edit/<tournament_id>/")
 @login_required
@@ -52,6 +66,17 @@ def tournament_create():
   
     t = Tournament(form.name.data,form.description.data,current_user.users_id)
     t.type = form.type.data
+  
+    db.session().add(t)
+    db.session().commit()
+  
+    return redirect(url_for("index"))
+
+@app.route("/tournament/join/<tournament_id>/", methods=["GET"])
+@login_required
+def tournament_join(tournament_id):
+
+    t = Users_to_tournaments(tournament_id,current_user.users_id)
   
     db.session().add(t)
     db.session().commit()

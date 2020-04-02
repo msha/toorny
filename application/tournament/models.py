@@ -16,9 +16,13 @@ class Tournament(db.Model):
     owner = db.Column(db.Integer, db.ForeignKey('users.users_id'),
                            nullable=False)
 
+    Match = db.relationship("Match", backref='Tournament', lazy=True)
+    Users_to_tournaments = db.relationship("Users_to_tournaments", backref='Tournament', lazy=True)
+
     def __init__(self, name, description,owner) :
         self.name = name
         self.description = description
         self.status = 0
         self.owner = owner
+
 

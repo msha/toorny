@@ -22,6 +22,8 @@ from application.login import views
 from application.tournament import models
 from application.tournament import views
 
+from application.match import models
+
 from application.login.models import Users
 
 from os import urandom
