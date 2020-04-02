@@ -17,8 +17,9 @@ testi - testaaja
 
 - Tietoturva puuttuu
 - Turnaustyypin valinta ei toimi
-- Turnauksiin voi osallistua monta kertaa
-- Toiminnallisuuksia puuttuu
+- Turnauksiin voi osallistua monta kertaa samalla tunnuksella
+- Active users kysely footerissa ei toimi kaikilla sivuilla
+- Toimintoja puuttuu
 - Tyyli ei vastaa lopullista
 
 ## Toimintoja
