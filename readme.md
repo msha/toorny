@@ -16,7 +16,10 @@ testi - testaaja
 ## Tunnetut ongelmat
 
 - Tietoturva puuttuu
-- Turnaustyypin valinta ei tee mitään
+- Turnaustyypin valinta ei toimi
+- Turnauksiin voi osallistua monta kertaa
+- Toiminnallisuuksia puuttuu
+- Tyyli ei vastaa lopullista
 
 ## Toimintoja
 
