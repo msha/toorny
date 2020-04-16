@@ -36,3 +36,5 @@ testi - testaaja
 [Tietokantakaavio](https://github.com/msha/toorny/blob/master/documentation/tietokanta.jpg)
 
 [Käyttötapaukset](https://github.com/msha/toorny/blob/master/documentation/usecases.md)
+
+[Asennusohje](https://github.com/msha/toorny/blob/master/documentation/install.md)
