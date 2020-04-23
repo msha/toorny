@@ -38,3 +38,5 @@ testi - testaaja
 [Käyttötapaukset](https://github.com/msha/toorny/blob/master/documentation/usecases.md)
 
 [Asennusohje](https://github.com/msha/toorny/blob/master/documentation/install.md)
+
+[Käyttöohjeet](https://github.com/msha/toorny/blob/master/documentation/manual.md)
