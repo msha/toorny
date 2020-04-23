@@ -13,9 +13,9 @@
           {% if current_user.is_authenticated %}
           <li><p>Hello {{ current_user.name}}!</p></li>
           <li>
-            <a href="{{url_for('tournament_form')}}">Create tournament</a>
+            <a href="{{url_for('tournament_form')}}">Create Tournament</a>
           </li>
-          <li><a href="{{url_for('logout')}}">Log out</a></li>
+          <li><a href="{{url_for('logout')}}">Log Out</a></li>
           {% else %}
           <li><a href="{{url_for('register_form')}}">Register</a></li>
           <li><a href="{{url_for('login_form')}}">Login</a></li>

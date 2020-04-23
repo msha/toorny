@@ -6,6 +6,20 @@ from application.tournament.models import Tournament
 from application.users_to_tournaments.models import Users_to_tournaments
 from application.login.models import Users
 from application.tournament.forms import TournamentForm
+
+def get_users_to_tournaments(tournament_id):
+    
+    u_to_t = db.session.query(
+    Users_to_tournaments,Users
+    ).filter(
+        Users_to_tournaments.tournament_id==tournament_id,
+    ).filter(
+            Users.users_id == Users_to_tournaments.user_id
+    ).all()
+
+    return u_to_t
+
+
   
 @app.route("/tournament/new/")
 @login_required
@@ -30,13 +44,11 @@ def tournament_edit(tournament_id):
 @login_required
 def tournament_view(tournament_id):
 
-    t = Tournament.query.get(tournament_id)
-    u = db.session.query(Users)
-    ttu = db.session.query(Users_to_tournaments)
+    t = Tournament.query.get(tournament_id)      
 
     db.session.commit()
 
-    return render_template("tournament/view.html", tournament = t, users_t = ttu, users = u)
+    return render_template("tournament/view.html", tournament = t, users = get_users_to_tournaments(tournament_id))
 
 @app.route("/tournament/edit/<tournament_id>/")
 @login_required
@@ -76,9 +88,29 @@ def tournament_create():
 @login_required
 def tournament_join(tournament_id):
 
-    t = Users_to_tournaments(tournament_id,current_user.users_id)
-  
-    db.session().add(t)
+    t = Tournament.query.get(tournament_id)
+    u = db.session.query(Users)
+    ttu = db.session.query(Users_to_tournaments)
+
+    if Users_to_tournaments.query.filter(Users_to_tournaments.tournament_id == tournament_id, Users_to_tournaments.user_id == current_user.users_id).count() > 0:
+        return render_template("tournament/view.html", tournament = t, users = get_users_to_tournaments(tournament_id)) #return if user has already joined
+    
+    lisays = Users_to_tournaments(tournament_id,current_user.users_id)
+
+    db.session().add(lisays)
     db.session().commit()
   
-    return redirect(url_for("index"))
+    return render_template("tournament/view.html", tournament = t, users = get_users_to_tournaments(tournament_id))
+
+@app.route("/tournament/part/<tournament_id>/", methods=["GET"])
+@login_required
+def tournament_part(tournament_id):
+
+    t = Tournament.query.get(tournament_id)
+    u = db.session.query(Users)
+    ttu = db.session.query(Users_to_tournaments)
+
+    Users_to_tournaments.query.filter(Users_to_tournaments.tournament_id == tournament_id, Users_to_tournaments.user_id == current_user.users_id).delete()
+    db.session().commit()
+  
+    return render_template("tournament/view.html", tournament = t, users = get_users_to_tournaments(tournament_id))
