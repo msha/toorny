@@ -9,11 +9,12 @@
     <section>
       <table>
       <tbody>
+        <tr>
+          <th> Username </th>
+          <th> Seed </th>
+        </tr>
         {% for user in users %}
-            <tr>
-              <td>
-                {{ user.Users.users_id }} 
-              </td>
+              <tr>
             <td>
               {{ user.Users.name }} 
             </td>
@@ -24,12 +25,12 @@
         {% endfor %}
       </tbody>
       </table>
-    </section>
+    </section >
     {% else %}
     <h3>Bracket:</h3>
     <section>
         {% for round in matches|map(attribute='round')|unique %}
-        <aside>
+        <aside class="bracket">
           <h2>Round: {{round}}</h2>
           <table>
               {% for match in matches %}

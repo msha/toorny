@@ -1,8 +1,6 @@
 {% extends "layout.html" %} {% block body %}
 
   <section>
-    {% if current_user.is_authenticated %}
-
     <header><h1>Tournaments</h1></header>
     {% for tournament in tournaments %} 
     <aside>
@@ -60,12 +58,8 @@
       >
     {% endif %}
   </aside>
-    {% endfor %} {% else %}
-
-    <p>
-      Here be dragons
-    </p>
-    {% endif %}
+    {% endfor %}
   </section>
-
+<hr>
+<h2>Statistics</h2>
 {% endblock %}

@@ -67,7 +67,9 @@
           {% set r.value = r.value + 1 %}
           <td>{{ score.husers_score }}</td>
           <td>{{ score.vusers_score }}</td>
+          {% if ((current_user.users_id == users[0].Users.users_id or current_user.users_id == users[1].Users.users_id)) or current_user.users_id == tournament.owner %}
           <td><a style="color:salmon"href="{{  url_for('delete_score',scores_id=score.scores_id) }}"> DEL </a></td>
+          {% endif %}
         </tr>
         {% endfor %}
         </tbody>
