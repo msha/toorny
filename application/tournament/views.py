@@ -80,7 +80,7 @@ def generate_brackets_se(tournament_id):
 
             if round == 0:
                 m = Match(match_no,tournament_id,round+1)
-                
+
                 m.husers_id = get_user_id(users,(match + 1))
                 m.vusers_id = get_user_id(users,(r_pow - (match)))
 
@@ -161,6 +161,7 @@ def tournament_start(tournament_id):
         return render_template("index.html", tournaments = Tournament.query.all(), users = Users.count_active_users(), error = "Invalid permissions. This incident will be reported.")
 
     ttu = db.session.query(Users_to_tournaments).filter(Users_to_tournaments.tournament_id == tournament_id)
+    
     if get_count(ttu) < 2:
        return render_template("index.html", tournaments = Tournament.query.all(), users = Users.count_active_users(), error = "Unable to start tournament due to insufficent user count. You need atleast 2 users to start a tournament!")
 

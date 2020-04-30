@@ -61,7 +61,7 @@ class Users(db.Model):
         
     @staticmethod
     def get_wins():
-        stmt = text("select u.name, count(*) as wins, (select count(*) from match where husers_id = u.users_id or vusers_id = u.users_id) "
+        stmt = text("select u.name, count(*) as wins, (select count(*) from match where (husers_id = u.users_id or vusers_id = u.users_id) and winner > 0) "
                     "from users u "
                     "join users_to_tournaments utt on u.users_id = utt.user_id  "
                     "join tournament t on utt.tournament_id = t.tournament_id  "
