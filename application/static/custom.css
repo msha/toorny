@@ -7,3 +7,8 @@
 .bracket {
   width: auto;
 }
+.description {
+  color: #5b5b5b;
+  text-justify: distribute;
+  text-align: justify;
+}

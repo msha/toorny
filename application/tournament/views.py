@@ -133,10 +133,15 @@ def tournament_edit(tournament_id):
     form = TournamentForm(request.form)
     t = Tournament.query.get(tournament_id)
 
+    
+
     if not t.owner == current_user.users_id:
         return render_template("index.html", tournaments = Tournament.query.all(), users = Users.count_active_users(),
                                error = "Invalid permissions. This incident will be reported.")
 
+    if not form.validate():
+        return render_template("/tournament/edit.html", form = form, error = form.errors)
+        
     t.name = form.name.data
     t.description = form.description.data
 
