@@ -6,7 +6,8 @@ Käyttäjä rekisteröityy palveluun lomakkeen kautta, jonka jälkeen hän voi k
 
 SQL-kysely:
 ```
-INSERT INTO users (username, password, name, date_created, date_modified, user_group) VALUES (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?)
+INSERT INTO users (username, password, name, date_created, date_modified, user_group) 
+VALUES (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?)
 ```
 
 ## Rekisteröitynyt käyttäjä voi luoda turnauksia palvelussa
@@ -15,7 +16,8 @@ Käyttäjä luo turnauksen ja asettaa sille haluamansa formaatin, sekä muut tie
 
 SQL-kysely:
 ```
-INSERT INTO tournament (name, type, description, date_created, date_modified, start_date, end_date, status, owner) VALUES (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?)
+INSERT INTO tournament (name, type, description, date_created, date_modified, start_date, end_date, status, owner) 
+VALUES (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?)
 ```
 **HUOM**: _Päivämäärää ei nykyisessä versiossa kysytä tai näytetä sivuilla, joten kenttiin syötetään vain nykyinen aikaleima_
 
@@ -25,21 +27,24 @@ Käyttäjä voi lisätä turnaukseen osallistujia, merkata sen alkaneeksi, vaiht
 
 SQL-kysely muokkaukselle
 ```
-UPDATE tournament SET name=?, description=?, date_modified=CURRENT_TIMESTAMP WHERE tournament.tournament_id = ?
+UPDATE tournament SET name=?, description=?, date_modified=CURRENT_TIMESTAMP 
+WHERE tournament.tournament_id = ?
 ```
 
 SQL-Kysely turnauksen aloitukselle
 ```
-UPDATE tournament SET date_modified=CURRENT_TIMESTAMP, status=? WHERE 
-tournament.tournament_id = ?
+UPDATE tournament SET date_modified=CURRENT_TIMESTAMP, status=? 
+WHERE tournament.tournament_id = ?
 ```
 jonka yhteydessä luodaan tarvittavat ottelut
 ```
-INSERT INTO "match" (match_no, tournament_id, parent_id, round, husers_id, vusers_id, winner, date) VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+INSERT INTO "match" (match_no, tournament_id, parent_id, round, husers_id, vusers_id, winner, date) 
+VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
 ```
 tai vastaavasti poistetaan turnauksen *kaikki* ottelut, jos turnaus keskeytetään
 ```
-DELETE FROM "match" WHERE "match".tournament_id = ?
+DELETE FROM "match" 
+WHERE "match".tournament_id = ?
 ```
 
 Turnauksen poisto
@@ -48,7 +53,8 @@ DELETE FROM tournament WHERE tournament.tournament_id = ?
 ```
 jonka yhteydessä turnaukseen liittyneet käyttäjät poistetaan liitostaulusta
 ```
-DELETE FROM users_to_tournaments WHERE users_to_tournaments.tournament_id = ?
+DELETE FROM users_to_tournaments 
+WHERE users_to_tournaments.tournament_id = ?
 ```
 
 ## Rekisteröitynyt käyttäjä voi osallistua olemassa olevaan turnaukseen
@@ -92,7 +98,15 @@ WHERE users_to_tournaments.tournament_id = ? AND users.users_id = users_to_tourn
 
 Käyttäjät voivat katsoa tilastoja toisen käyttäjän pelaamista peleistä, voittoprosenteista jne.
 
-SQL-kysely top 10 eniten voittoja
+SQL-kysely top 10 käyttäjät voittojen mukaan
 ```
-select top 10 u.name, count(*) as wins from users u join users_to_tournaments utt on u.users_id = utt.user_id  join tournament t on utt.tournament_id = t.tournament_id  join match m on m.tournament_id = t.tournament_id  where (u.users_id = m.husers_id and m.winner = 1) or (u.users_id = m.vusers_id and m.winner = 2) group by u.users_id order by wins
+select top 10 u.name, count(*) as wins, (select count(*) from match where husers_id = u.users_id or vusers_id = u.users_id) 
+from users u 
+join users_to_tournaments utt on u.users_id = utt.user_id  
+join tournament t on utt.tournament_id = t.tournament_id  
+join match m on m.tournament_id = t.tournament_id  
+where (u.users_id = m.husers_id and m.winner = 1) or (u.users_id = m.vusers_id and m.winner = 2) 
+group by u.users_id 
+order by wins
+limit 10
 ```

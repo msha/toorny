@@ -22,6 +22,21 @@ testi - testaaja
 - Tuloksien syöttö
 - Tulosten ja tilastojen tarkastelu
 
+## Puutteita
+
+#### UX
+- Teema jäi MVP tasolle
+- Ei varmistuskyselyitä turnauksen poistolle jne. käyttäjä voi väärillä klikeillä tuhota oman turnauksen helposti
+- Käyttöliittymästä ei näe suoraan mihin otteluun pelaaja etenee
+- Osassa toimintoja feedback käyttäjälle voisi olla selvempi
+
+#### Toiminnallisuudet
+- Turnaukselle ei voi syöttää päivämääriä,tarkempaa lajia/peliä
+- Turnauksiin ei voi lisätä(tai kutsua) kirjautumattomia käyttäjiä
+- Käyttäjien sijoituksia ei voi käsin vaihtaa
+- Käyttäjillä ei ole profiileja
+- Salasanoja ei kryptata (ei kannata käyttää oikeaa salasanaa :D )
+
 ## Dokumentaatio
 
 [Tietokantakaavio](https://github.com/msha/toorny/blob/master/documentation/tietokanta.jpg)
