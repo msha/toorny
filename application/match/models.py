@@ -7,7 +7,7 @@ class Match(db.Model):
     match_no = db.Column(db.Integer)
     tournament_id = db.Column(db.Integer, db.ForeignKey('tournament.tournament_id'),
                                nullable=False)
-    parent_id = db.Column(db.Integer, db.ForeignKey('match.matches_id'))
+    parent_id = db.Column(db.Integer)
     round = db.Column(db.Integer)
     husers_id = db.Column(db.Integer, db.ForeignKey('users.users_id'))
     vusers_id = db.Column(db.Integer)

@@ -80,8 +80,10 @@ def generate_brackets_se(tournament_id):
 
             if round == 0:
                 m = Match(match_no,tournament_id,round+1)
+                
                 m.husers_id = get_user_id(users,(match + 1))
                 m.vusers_id = get_user_id(users,(r_pow - (match)))
+
                 if no_rounds>1:
                     if ((r_pow/2) + luku) < ((r_pow/2)+ ((2**(no_rounds - round - 2)))):
                         luku += 1
@@ -141,7 +143,7 @@ def tournament_edit(tournament_id):
 
     if not form.validate():
         return render_template("/tournament/edit.html", form = form, error = form.errors)
-        
+
     t.name = form.name.data
     t.description = form.description.data
 
