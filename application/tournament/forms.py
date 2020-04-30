@@ -5,7 +5,7 @@ class TournamentForm(FlaskForm):
 
     name = StringField("Name", [validators.Length(min=5),validators.Length(max=144)])
     description = TextAreaField("Description", [validators.Length(max=500)])
-    type = SelectField(u'Tournament Type', choices=[('1', 'Single Elimination'), ('2', 'Double Elimination'), ('3', 'Round Robin')])
+    type = SelectField(u'Tournament Type', choices=[('1', 'Single Elimination')])
 
     class Meta:
         csrf = False

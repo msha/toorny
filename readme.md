@@ -4,7 +4,7 @@
 
 Tarkoituksena on luoda työkalu, jolla käyttäjät voivat luoda turnauksia, sekä osallistua niihin. Lähtökohtaisesti tarkoitus on luoda tennisturnauksiin sopiva järjestelmä, mutta miksei myös muihin käyttötarkoituksiin.
 
-Turnauksia voi luoda usean tyyppisiä (Single-elimination, Round-robin, ~~Double-elimination~~, ~~Swiss-system~~), jonka jälkeen palvelu luo niistä kaaviot sekä mahdollistaa niiden ylläpidon. Turnauksen ylläpitäjä voi kutsua turnaukseen käyttäjiä tai lisätä ne käsin. Turnauksen ylläpitäjä voi merkitä kaikkien pelien tulokset, jonka lisäksi palveluun rekisteröityneet käyttäjät voivat merkitä tulokset omiin peleihinsä. Palvelu pitää myös tilastotietoa tuloksista.
+Turnauksia voi luoda usean tyyppisiä (Single-elimination, ~~Round-robin~~, ~~Double-elimination~~, ~~Swiss-system~~), jonka jälkeen palvelu luo niistä kaaviot sekä mahdollistaa niiden ylläpidon. Turnauksen ylläpitäjä voi kutsua turnaukseen käyttäjiä tai lisätä ne käsin. Turnauksen ylläpitäjä voi merkitä kaikkien pelien tulokset, jonka lisäksi palveluun rekisteröityneet käyttäjät voivat merkitä tulokset omiin peleihinsä. Palvelu pitää myös tilastotietoa tuloksista.
 
 ## Heroku
 
@@ -32,6 +32,7 @@ testi - testaaja
 
 #### Toiminnallisuudet
 - Turnaukselle ei voi syöttää päivämääriä,tarkempaa lajia/peliä
+- Muut turnaustyypit kuin Single Elimination puuttuvat
 - Turnauksiin ei voi lisätä(tai kutsua) kirjautumattomia käyttäjiä
 - Käyttäjien sijoituksia ei voi käsin vaihtaa
 - Käyttäjillä ei ole profiileja
