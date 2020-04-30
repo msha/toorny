@@ -62,4 +62,27 @@
   </section>
 <hr>
 <h2>Statistics</h2>
+<table>
+  <tbody>
+    <tr>
+      <th>Rank</th>
+      <th>Username</th>
+      <th>Win</th>
+      <th>Loss</th>
+      <th>% Winrate</th>
+      <th>Total games</th>
+    </tr>
+    {% set r = namespace(value=0)  %}
+    {% for stat in stats %}
+    <tr>
+      {% set r.value = r.value + 1 %}
+      <td>#{{r.value}}</td>
+      <td>{{stat.0}}</td>
+      <td>{{stat[1]}}</td>
+      <td>{{stat[2]-stat[1]}}</td>
+      <td>{{'%0.2f'|format((stat[1]/stat[2])*100|float)}}%</td>
+      <td>{{stat[2]}}</td>
+    </tr>
+    {% endfor %}
+
 {% endblock %}

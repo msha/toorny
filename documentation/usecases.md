@@ -91,3 +91,8 @@ WHERE users_to_tournaments.tournament_id = ? AND users.users_id = users_to_tourn
 ## Käyttäjät voivat tarkastella tilastotietoja turnauksista
 
 Käyttäjät voivat katsoa tilastoja toisen käyttäjän pelaamista peleistä, voittoprosenteista jne.
+
+SQL-kysely top 10 eniten voittoja
+```
+select top 10 u.name, count(*) as wins from users u join users_to_tournaments utt on u.users_id = utt.user_id  join tournament t on utt.tournament_id = t.tournament_id  join match m on m.tournament_id = t.tournament_id  where (u.users_id = m.husers_id and m.winner = 1) or (u.users_id = m.vusers_id and m.winner = 2) group by u.users_id order by wins
+```

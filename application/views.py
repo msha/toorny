@@ -3,6 +3,10 @@ from application import app
 from application.tournament.models import Tournament
 from application.login.models import Users
 
+@app.context_processor
+def context_processor():
+    return dict(key='kek',stats=Users.get_wins())
+
 
 @app.route("/")
 def index():

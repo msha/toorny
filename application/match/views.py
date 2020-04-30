@@ -71,7 +71,7 @@ def match_win(match_id):
         users.append((user.Users.users_id,user.Users.name))
 
     if int(winner) not in ids and (current_user.users_id != t.owner or current_user.users_id not in ids):
-        return render_template("index.html",
+        return render_template("index.html", tournaments = Tournament.query.all(), users = Users.count_active_users(),
                                error = "Invalid permissions. This incident will be reported.")
 
     f = ScoreForm(request.form)

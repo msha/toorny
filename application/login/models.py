@@ -58,3 +58,22 @@ class Users(db.Model):
             response = row[0]
 
         return response
+        
+    @staticmethod
+    def get_wins():
+        stmt = text("select u.name, count(*) as wins, (select count(*) from match where husers_id = u.users_id or vusers_id = u.users_id) "
+                    "from users u "
+                    "join users_to_tournaments utt on u.users_id = utt.user_id  "
+                    "join tournament t on utt.tournament_id = t.tournament_id  "
+                    "join match m on m.tournament_id = t.tournament_id  "
+                    "where (u.users_id = m.husers_id and m.winner = 1) or (u.users_id = m.vusers_id and m.winner = 2) "
+                    "group by u.users_id "
+                    "order by wins desc  "
+                    "limit 10 ;")
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append((row[0],row[1],row[2]))
+
+        return response

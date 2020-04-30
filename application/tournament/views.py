@@ -50,6 +50,11 @@ def get_sort_order(users,user):
             user_id = user.Users.sort_order
     return sort_order
 
+def get_count(q):
+    count_q = q.statement.with_only_columns([db.func.count()]).order_by(None)
+    count = q.session.execute(count_q).scalar()
+    return count
+
 def generate_brackets_se(tournament_id):
 
     #Single elimination bracket generation
@@ -60,6 +65,7 @@ def generate_brackets_se(tournament_id):
     
     match_no = 1
     matches = []
+
 
     luku3 = 0
     for round in range(0,no_rounds):
@@ -128,7 +134,7 @@ def tournament_edit(tournament_id):
     t = Tournament.query.get(tournament_id)
 
     if not t.owner == current_user.users_id:
-        return render_template("index.html",
+        return render_template("index.html", tournaments = Tournament.query.all(), users = Users.count_active_users(),
                                error = "Invalid permissions. This incident will be reported.")
 
     t.name = form.name.data
@@ -145,8 +151,12 @@ def tournament_start(tournament_id):
     t = Tournament.query.get(tournament_id)
 
     if not t.owner == current_user.users_id:
-        return render_template("index.html",
-                               error = "Invalid permissions. This incident will be reported.")
+        return render_template("index.html", tournaments = Tournament.query.all(), users = Users.count_active_users(), error = "Invalid permissions. This incident will be reported.")
+
+    ttu = db.session.query(Users_to_tournaments).filter(Users_to_tournaments.tournament_id == tournament_id)
+    if get_count(ttu) < 2:
+       return render_template("index.html", tournaments = Tournament.query.all(), users = Users.count_active_users(), error = "Unable to start tournament due to insufficent user count. You need atleast 2 users to start a tournament!")
+
     t.status = 1
     db.session.commit()
 
@@ -161,9 +171,8 @@ def tournament_stop(tournament_id):
     t = Tournament.query.get(tournament_id)
 
     if not t.owner == current_user.users_id:
-        return render_template("index.html",
-                               error = "Invalid permissions. This incident will be reported.")
-                               
+        return render_template("index.html", tournaments = Tournament.query.all(), users = Users.count_active_users(), error = "Invalid permissions. This incident will be reported.")
+
     delete_scores(tournament_id)
     delete_all_matches(tournament_id)
     t.status = 0
@@ -189,8 +198,7 @@ def tournament_edit_form(tournament_id):
     t = Tournament.query.get(tournament_id)
 
     if not t.owner == current_user.users_id:
-        return render_template("index.html",
-                               error = "Invalid permissions. This incident will be reported.")
+        return render_template("index.html", tournaments = Tournament.query.all(), users = Users.count_active_users(), error = "Invalid permissions. This incident will be reported.")
   
     return render_template("tournament/edit.html", form = TournamentForm(), tournament = t)
 
@@ -201,8 +209,7 @@ def tournament_delete(tournament_id):
     t = Tournament.query.get(tournament_id)
 
     if not t.owner == current_user.users_id or t.status != 0:
-        return render_template("index.html",
-                               error = "Invalid permissions. This incident will be reported.")
+        return render_template("index.html", tournaments = Tournament.query.all(), users = Users.count_active_users(), error = "Invalid permissions. This incident will be reported.")
     
     Users_to_tournaments.query.filter(Users_to_tournaments.tournament_id == tournament_id).delete()
     Tournament.query.filter(Tournament.tournament_id == tournament_id and Tournament.owner == current_user.users_id).delete()
@@ -221,7 +228,7 @@ def tournament_create():
     form = TournamentForm(request.form)
   
     if not form.validate():
-        return render_template("/tournament/new.html", form = form)
+        return render_template("/tournament/new.html", form = form, error = form.errors)
   
     t = Tournament(form.name.data,form.description.data,current_user.users_id)
     t.type = form.type.data
