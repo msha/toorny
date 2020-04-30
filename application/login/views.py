@@ -17,8 +17,11 @@ def registration():
 
     u = Users(request.form.get("name"),request.form.get("username"),request.form.get("password"))
 
+    if db.session.query(Users.users_id).filter_by(username=request.form.get("username")).scalar():
+        return render_template("login/register.html", form = form, errors = ({"Username already in use!"}))
+
     if not form.validate():
-        return render_template("login/register.html", form = form)
+        return render_template("login/register.html", form = form, errors = form.errors)
 
     db.session().add(u)
     db.session().commit()
