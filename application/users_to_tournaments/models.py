@@ -12,6 +12,7 @@ class Users_to_tournaments(db.Model):
                      )
     
 
-    def __init__(self, tournament_id, user_id) :
+    def __init__(self, tournament_id, user_id,sort_order) :
         self.tournament_id = tournament_id
         self.user_id = user_id
+        self.sort_order = sort_order

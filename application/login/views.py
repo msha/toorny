@@ -29,15 +29,6 @@ def registration():
 def users():
     return render_template("index")
 
-@app.route("/users/<users_id>/", methods=["POST"])
-def users_ban(users_id):
-
-    u = Users.query.get(users_id)
-    u.banned = True
-    db.session().commit()
-  
-    return redirect(url_for("users"))
-
 @app.route("/login", methods = ["GET", "POST"])
 def login_form():
     if request.method == "GET":

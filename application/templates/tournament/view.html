@@ -3,29 +3,128 @@
   <header>
     <h2>{{ tournament.name }}</h2>
     <p>{{ tournament.description }}</p>
+    <hr>
+    {% if tournament.status == 0 %}
     <h3>Participants:</h3>
     <section>
-    <table>
+      <table>
       <tbody>
-      {% for user in users %}
-          <tr>
+        {% for user in users %}
+            <tr>
+              <td>
+                {{ user.Users.users_id }} 
+              </td>
             <td>
-            {{ user.Users.name }} 
-           </td>
+              {{ user.Users.name }} 
+            </td>
+            <td>
+              {{ user.Users_to_tournaments.sort_order }} 
+            </td>
+            </tr>
+        {% endfor %}
+      </tbody>
+      </table>
+    </section>
+    {% else %}
+    <h3>Bracket:</h3>
+    <section>
+        {% for round in matches|map(attribute='round')|unique %}
+        <aside>
+          <h2>Round: {{round}}</h2>
+          <table>
+              {% for match in matches %}
+              {% if match.round == round %}
+              
+                <tr>
+              <td>
+                {{ match.match_no }} 
+              </td>
+              <a>
+              </a>
+              <td>
+                {% if round == 1 %}
+                {% for user in users %}
+                {% if user.Users.users_id == match.husers_id %}
+                  {{user.Users.name}}
+                {% endif %}
+                {% endfor %}
+                  vs
+                {% if match.vusers_id %}
+                {% for user in users %}
+                {% if user.Users.users_id == match.vusers_id %}
+                  {{user.Users.name}}
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                BYE
+                {% endif %}
+                {% else %}
+                {% if match.husers_id %}
+                {% for user in users %}
+                {% if user.Users.users_id == match.husers_id %}
+                  {{user.Users.name}}
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                TBD
+                {% endif %}
+                  vs
+                {% if match.vusers_id %}
+                {% for user in users %}
+                {% if user.Users.users_id == match.vusers_id %}
+                  {{user.Users.name}}
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                  TBD
+                {% endif %}
+                {% endif %}
+              </td>
+              <td>
+                <a href="{{ url_for('match_view',match_id=match.matches_id) }}">
+              {% if match.winner == none and match.vusers_id != none   and match.husers_id != none   %}
+              Report Score
+              {% elif match.winner == 1 %} 
+                {% for user in users %}
+                  {% if user.Users.users_id == match.husers_id %}
+                    Winner: {{user.Users.name}}!
+                  {% endif %}
+                {% endfor %}
+              {% elif match.winner == 2 %} 
+                {% for user in users %}
+                  {% if user.Users.users_id == match.vusers_id %}
+                    Winner:{{user.Users.name}}!
+                  {% endif %}
+                {% endfor %}
+              {% else %}
+              {% endif %}
+            </a>
+            </td>
+              {% endif %}
+            {% endfor %}
           </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</section>
-
+          </table>
+        </aside>
+        {% endfor %}
+    </section>
+  {% endif %}
+<br>
+<br>
+{% if tournament.status == 0 and current_user.is_anonymous != True %}
+  {% if not userin == 1 %}
     <a href="{{ url_for('tournament_join',tournament_id=tournament.tournament_id) }}">
       <b>Join Tournament</b>
     </a>
-  
+  {% else %}
     <a href="{{ url_for('tournament_part',tournament_id=tournament.tournament_id) }}">
       <b>Leave Tournament</b>
     </a>
-    
+    {% endif %}
+  {% endif %}
+  <hr>
   </header>
+  
+  <section>
+  </section>
 </section>
 {% endblock %}

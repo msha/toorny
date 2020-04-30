@@ -4,40 +4,62 @@
     {% if current_user.is_authenticated %}
 
     <header><h1>Tournaments</h1></header>
-    {% for tournament in tournaments %} {% if current_user.users_id ==
-    tournament.owner %}
+    {% for tournament in tournaments %} 
     <aside>
-      <h3>{{ tournament.name }}  </h3> 
-      <!-- <small><i>x participants </i></small> -->
-      {% if tournament.status == 1 %}
-      <sup> This tournament is in progress</sup>
+      
+      {% if tournament.name | length < 20 %}
+        <h3>{{ tournament.name }}  </h3> 
       {% else %}
+        <h3>{{ tournament.name[:17] }}...</h3> 
       {% endif %}
-      <p>{{ tournament.description }}</p>
+
+      {% if tournament.status == 1 %}
+        <sup> This tournament is in progress</sup>
+      {% elif tournament.status == 0 %}
+        <sup> Registeration is open!</sup>
+      {% elif tournament.status == 2 %}
+        <sup> This tournament has been completed!</sup>
+      {% endif %}
+
+      {% if tournament.description | length < 50 %}
+        <p>{{ tournament.description }}</p>
+      {% else %}
+        <p>{{ tournament.description[:47] }}...</p>
+      {% endif %}
+
+      {% if current_user.users_id == tournament.owner %}
+      <!-- <small><i>x participants </i></small> -->
       <a style="padding-right: 14px;"
         href="{{url_for('tournament_view',tournament_id=tournament.tournament_id)}}"
         >View</a
       >
-      <a
+      <a style="padding-right: 14px;"
         href="{{url_for('tournament_edit_form',tournament_id=tournament.tournament_id)}}"
         >Edit</a
+      >
+      {% if tournament.status == 0 %}
+      <a
+        href="{{url_for('tournament_start',tournament_id=tournament.tournament_id)}}"
+        >Start</a
       >
       <a
         style="float: right; color: rgb(233, 78, 78);"
         href="{{url_for('tournament_delete',tournament_id=tournament.tournament_id)}}"
         >Delete</a
       >
-    </aside>
+      {% else %}
+      <a
+        href="{{url_for('tournament_stop',tournament_id=tournament.tournament_id)}}"
+        >Stop</a
+      >
+      {% endif %}
     {% else %}
-    <aside>
-      <h3>{{ tournament.name }}</h3> 
-      <p>{{ tournament.description }}</p> 
       <a
         href="{{url_for('tournament_view',tournament_id=tournament.tournament_id)}}"
         >View</a
       >
-    </aside>
     {% endif %}
+  </aside>
     {% endfor %} {% else %}
 
     <p>

@@ -1,0 +1,89 @@
+{% extends "layout.html" %} {% block body %}
+<section>
+  <header>
+    
+    <h2> Match {{ match.match_no }} in {{ tournament.name }} -  
+      {% for user in users %}
+      {% if user.Users.users_id == match.husers_id %}
+        {{user.Users.name}}
+      {% endif %}
+      {% endfor %}
+        vs
+      {% if match.vusers_id %}
+      {% for user in users %}
+      {% if user.Users.users_id == match.vusers_id %}
+        {{user.Users.name}}
+      {% endif %}
+      {% endfor %}
+      {% else %}
+      N/A
+      {% endif %}
+    </h2>
+    {% if match.winner == 1 %} 
+    <h1>Winner: {% for user in users %}
+      {% if user.Users.users_id == match.husers_id %}
+        {{user.Users.name}}
+      {% endif %}
+      {% endfor %} !!! </h1> 
+    {% elif match.winner == 2 %}
+    <h1> Winner: {% for user in users %}
+      {% if user.Users.users_id == match.vusers_id %}
+        {{user.Users.name}}
+      {% endif %}
+      {% endfor %} !!! </h1>
+    {% endif %}
+    {% if (match.winner == None and (current_user.users_id == users[0].Users.users_id or current_user.users_id == users[1].Users.users_id)) or current_user.users_id == tournament.owner %}
+    <section>
+    <form method="POST" action="{{ url_for('match_win',match_id=match.matches_id) }}">
+      <label for="Home_Score">{{winform.winner.label}}</label>
+      {{ winform.winner }}
+      <button type="submit" value="Login">Submit winner</button><br />
+    </form>
+    </section>
+    {% endif %}
+    <section>
+      <aside>
+        <h2>Games</h2>
+        <table>
+          <tbody>
+            <tr>
+              <th> Game </th>
+              {% for user in users %}
+      {% if user.Users.users_id == match.husers_id %}
+      <th>{{user.Users.name}}</th>
+      {% endif %}
+      {% endfor %}
+      {% for user in users %}
+      {% if user.Users.users_id == match.vusers_id %}
+      <th>{{user.Users.name}}</th>
+      {% endif %}
+      {% endfor %}
+            </tr>
+        {% set r = namespace(value=1)  %}
+        {% for score in scores %}
+       
+        <tr>
+          <td>{{ r.value }}</td> 
+          {% set r.value = r.value + 1 %}
+          <td>{{ score.husers_score }}</td>
+          <td>{{ score.vusers_score }}</td>
+          <td><a style="color:salmon"href="{{  url_for('delete_score',scores_id=score.scores_id) }}"> DEL </a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+        {% if (match.winner == None and (current_user.users_id == users[0].Users.users_id or current_user.users_id == users[1].Users.users_id)) or current_user.users_id == tournament.owner %}
+        <form class="scoresform" method="POST" action="{{ url_for('post_score',match_id=match.matches_id) }}">
+          <label for="Home_Score">{{scoreform.home_score.label}}</label>
+          {{ scoreform.home_score }}
+          <label for="Visitor_Score">{{scoreform.visitor_score.label}}</label>
+          {{ scoreform.visitor_score }}
+          <button type="submit" value="Login">Submit Score</button>
+        </form>
+        {% endif %}
+      </aside>
+    </section>
+  </header>
+</section>
+
+{% endblock %}

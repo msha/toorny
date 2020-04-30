@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://andybrewer.github.io/mvp/mvp.css" />
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}"">
+    
     <title>Toorny</title>
   </head>
   <body>
@@ -24,6 +26,12 @@
       </nav>
     </header>
     <main>
+      {% if error is defined  %}
+          <sup>{{error}}</sup>
+        {% endif %}
+        {% for error in errors %}
+          <sup>{{error}}</sup>
+        {% endfor %}
     {% block body %} {% endblock %}
     </main>
   </body>

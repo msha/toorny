@@ -13,15 +13,6 @@ Turnauksia voi luoda usean tyyppisiä (Single-elimination, Round-robin, ~~Double
 Tunnukset:  
 testi - testaaja
 
-## Tunnetut ongelmat
-
-- Tietoturva puuttuu
-- Turnaustyypin valinta ei toimi
-- Turnauksiin voi osallistua monta kertaa samalla tunnuksella
-- Active users kysely footerissa ei toimi kaikilla sivuilla
-- Toimintoja puuttuu
-- Tyyli ei vastaa lopullista
-
 ## Toimintoja
 
 - Kirjautuminen

@@ -5,7 +5,7 @@ from sqlalchemy.sql import text
 class Users(db.Model):
 
     users_id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(30), nullable=False)
+    username = db.Column(db.String(30), nullable=False, unique=True)
     password = db.Column(db.String(144), nullable=False)
     name = db.Column(db.String(144), nullable=False)
     date_created = db.Column(db.DateTime, default=db.func.current_timestamp())

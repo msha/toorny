@@ -13,7 +13,6 @@ else:
 
 db = SQLAlchemy(app)
 
-
 from application import views
 
 from application.login import models
@@ -23,6 +22,10 @@ from application.tournament import models
 from application.tournament import views
 
 from application.match import models
+from application.match import views
+
+from application.score import views
+from application.score import models
 
 from application.login.models import Users
 
