@@ -31,6 +31,7 @@ testi - testaaja
 - Osassa toimintoja feedback käyttäjälle voisi olla selvempi
 
 #### Toiminnallisuudet
+- Herokussa sovellus toimii jostain syystä erittäin huonosti(generointi/turnauksen käynnistys). Paikallisesti ainakin itsellä toimii paremmin
 - Turnaukselle ei voi syöttää päivämääriä,tarkempaa lajia/peliä
 - Muut turnaustyypit kuin Single Elimination puuttuvat
 - Turnauksiin ei voi lisätä(tai kutsua) kirjautumattomia käyttäjiä
